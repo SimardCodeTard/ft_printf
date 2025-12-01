@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib.h                                              :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/27 13:51:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/11/27 15:08:49 by smenard          ###   ########.fr       */
+/*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
+/*   Updated: 2025/12/01 16:34:47 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIB_H
-# define LIB_H
-# include "defines.h"
+#include "libft.h"
 
-t_arg	ft_parse_arg(t_string str, void *ap);
+void	ft_foo(void)
+{
+	int	bar;
 
-void	ft_normalize_arg(t_arg *arg);
-
-void	ft_putnbr_base(uint64_t num, t_string base);
-
-void	ft_print_arg(void *arg, t_value_type type);
-
-void	ft_print_substr(t_string str);
-
-#endif
+	bar = ft_strlen("baz");
+}

@@ -1,97 +1,50 @@
 CFLAGS = -Wall -Wextra -Werror
 
-SRC_FILES = ft_isascii.c \
-		ft_memcpy.c \
-		ft_bzero.c \
-		ft_isdigit.c \
-		ft_memmove.c \
-		ft_isprint.c \
-		ft_memset.c \
-		ft_strlcat.c \
-		ft_isalnum.c \
-		ft_strlcpy.c \
-		ft_isalpha.c \
-		ft_strlen.c \
-		ft_strlcat.c \
-		ft_toupper.c \
-		ft_tolower.c \
-		ft_strchr.c \
-		ft_strrchr.c \
-		ft_strncmp.c \
-		ft_memchr.c \
-		ft_memcmp.c \
-		ft_strnstr.c \
-		ft_atoi.c \
-		ft_calloc.c \
-		ft_strdup.c \
-		ft_substr.c \
-		ft_strjoin.c \
-		ft_strtrim.c \
-		ft_split.c \
-		ft_itoa.c \
-		ft_strmapi.c \
-		ft_striteri.c \
-		ft_putchar_fd.c \
-		ft_putstr_fd.c \
-		ft_putendl_fd.c \
-		ft_putnbr_fd.c
+SRC_DIR=src
 
-BONUS_FILES = ft_lstnew_bonus.c \
-		ft_lstadd_front_bonus.c \
-		ft_lstsize_bonus.c \
-		ft_lstlast_bonus.c \
-		ft_lstadd_back_bonus.c \
-		ft_lstdelone_bonus.c \
-		ft_lstclear_bonus.c \
-		ft_lstiter_bonus.c \
-		ft_lstmap_bonus.c
+LIBFT_DIR=libft
 
+SRC_FILES = $(SRC_DIR)/ft_printf.c \
+		$(SRC_DIR)/normalize.c \
+		$(SRC_DIR)/parse.c \
+		$(SRC_DIR)/print.c \
+		$(SRC_DIR)/utils.c
 
-BONUS_DONE = .make_bonus_done
+SRCS_OBJ = $(SRC_FILES:.c=.o)
 
-MANDATORY_DONE = .make_mandatory_done
+BONUS_OBJ = $(BONUS_FILES:.c=.o)
 
-SRCS = $(SRC_FILES)
-
-DFILES = $(ALL_OBJ:.o=.d)
-
-BONUS = $(BONUS_FILES)
-
-SRCS_OBJ = $(SRCS:.c=.o)
-
-BONUS_OBJ = $(BONUS:.c=.o)
+$(LIBFT_FILES):.c=.o
 
 ALL_OBJ = $(SRCS_OBJ) $(BONUS_OBJ)
 
-NAME = libft.a
+DFILES = $(ALL_OBJ:.o=.d)
+
+NAME = libftprintf.a
+
+NAME_LIBFT = $(LIBFT_DIR)/libft.a
 
 all: $(NAME)
 
-$(NAME): $(MANDATORY_DONE)
-
-$(MANDATORY_DONE): ${SRCS_OBJ}
+$(NAME) : $(NAME_LIBFT) $(SRCS_OBJ)
 	ar rcs $(NAME) $(SRCS_OBJ)
-	rm -f ${BONUS_DONE}
-	touch ${MANDATORY_DONE}
 
-bonus: $(BONUS_DONE)
+$(NAME_LIBFT):
+	make -C $(LIBFT_DIR) bonus
 
-$(BONUS_DONE): $(ALL_OBJ)
-	ar rcs $(NAME) $(ALL_OBJ)
-	rm -f ${MANDATORY_DONE}
-	touch $(BONUS_DONE)
-
-%.o: %.c
-	$(CC) -c $(CFLAGS) -MMD -MP $< -o $@
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+	$(CC) -c $(CFLAGS) -MMD -MP $< -o $@ -llibft/libft
 
 clean:
-	rm -rf $(ALL_OBJ) $(DFILES) $(BONUS_DONE) ${MANDATORY_DONE}
+	rm -rf $(ALL_OBJ) $(DFILES) $(NAME_LIBFT)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re %.o
+.PHONY: all bonus clean fclean re
 
 -include : $(DFILES)
