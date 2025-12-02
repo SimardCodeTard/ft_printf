@@ -6,15 +6,91 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/01 16:34:47 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 11:51:45 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "lib.h"
 
-void	ft_foo(void)
+ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
 {
-	int	bar;
+	ssize_t			total_write_count;
 
-	bar = ft_strlen("baz");
+	total_write_count = 0;
+	if (num < 0)
+	{
+		total_write_count++;
+		write(stdout->_fileno, "-", 1);
+		num = -num;
+	}
+	return (ft_putnbr_base(num, base) + total_write_count);
+}
+
+ssize_t	ft_putstr(t_string str)
+{
+	size_t	len;
+
+	if (str == NULL)
+		return (write(stdout->_fileno, "(null)", 6));
+	len = ft_strlen(str);
+	return (write(stdout->_fileno, str, len));
+}
+
+ssize_t	ft_putnbr_base(uint64_t num, t_string base)
+{
+	const size_t	base_len = ft_strlen(base);
+	ssize_t			write_result;
+	ssize_t			total_write_count;
+	char			c;
+
+	write_result = 0;
+	total_write_count = 0;
+	if (num > 9)
+	{
+		write_result = ft_putnbr_base(num / base_len, base);
+		if (write_result == -1)
+			return (-1);
+		total_write_count += write_result;
+		c = base[num % base_len];
+		write_result = write(stdout->_fileno, &c, 1);
+		return (write_result + total_write_count);
+	}
+	c = base[num];
+	write_result = write(stdout->_fileno, &c, 1);
+	if (write_result == -1)
+		return (-1);
+	return (write_result + total_write_count);
+}
+
+ssize_t	ft_print_arg(t_arg arg)
+{
+	if (arg.value == NULL && (arg.type == PTR || arg.type == STRING))
+	{
+		if (arg.type == PTR)
+			return (ft_putstr("(null)"));
+		else
+			return (ft_putstr("(nil)"));
+	}
+	else if (arg.type == CHAR || arg.type == PERCENT)
+		return (write(stdout->_fileno, arg.value, 1));
+	else if (arg.type == STRING)
+		return (ft_putstr(*(t_string *) arg.value));
+	else if (arg.type == INT)
+		return (ft_putnbr_base_signed(*((int32_t *) arg.value),
+				DECIMAL_CHARSET));
+	else if (arg.type == UINT)
+		return (ft_putnbr_base((uint32_t) *(int32_t *) arg.value,
+				DECIMAL_CHARSET));
+	else if (arg.type == LHEX)
+		return (ft_putnbr_base(ft_abs(*(int32_t *) arg.value), LHEX_CHARSET));
+	else if (arg.type == UHEX)
+		return (ft_putnbr_base(ft_abs(*(int32_t *) arg.value), UHEX_CHARSET));
+	else if (arg.type == PTR)
+		return (ft_putnbr_base(*(uint64_t *) arg.value, DECIMAL_CHARSET));
+	return (-1);
+}
+
+ssize_t	ft_print_substr(t_string str)
+{
+	return (write(stdout->_fileno, str, ft_strlen_until(str, '%')));
 }

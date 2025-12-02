@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:51:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/11/27 15:08:49 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 11:20:51 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,32 @@
 # define LIB_H
 # include "defines.h"
 
-t_arg	ft_parse_arg(t_string str, void *ap);
+/* parse.c */
+t_arg		ft_parse_arg(t_string str, va_list ap, size_t *i);
 
-void	ft_normalize_arg(t_arg *arg);
+/* normalize.c */
+void		ft_normalize_arg(t_arg *arg);
 
-void	ft_putnbr_base(uint64_t num, t_string base);
+/* print.c */
+ssize_t		ft_putstr(t_string str);
 
-void	ft_print_arg(void *arg, t_value_type type);
+ssize_t		ft_putnbr_base_signed(int64_t num, t_string base);
 
-void	ft_print_substr(t_string str);
+ssize_t		ft_putnbr_base(uint64_t num, t_string base);
+
+ssize_t		ft_print_arg(t_arg arg);
+
+ssize_t		ft_print_substr(t_string str);
+
+/* utils.c */
+size_t		ft_strlen(t_string str);
+
+size_t		ft_strlen_until(t_string str, char stop);
+
+uint64_t	ft_abs(int32_t num);
+
+char		*ft_strchr(t_string str, char c);
+
+t_string	ft_strdup(t_string str);
 
 #endif
