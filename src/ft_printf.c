@@ -6,33 +6,49 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:53:40 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 11:50:23 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 14:00:38 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+
+static ssize_t	handle_arg(t_string str, va_list ap, size_t *ptr_i)
+{
+	t_arg	arg;
+	size_t	wrote_count;
+
+	arg = ft_parse_arg(str, ap, ptr_i);
+	wrote_count = ft_print_arg(arg);
+	free(arg.value);
+	return (wrote_count);
+}
 
 int	ft_printf(char *str, ...)
 {
 	const size_t	str_len = ft_strlen(str);
 	va_list			ap;
 	size_t			i;
-	t_arg			arg;
 	ssize_t			wrote_count;
+	ssize_t			last_write_count;
 
 	va_start(ap, str);
 	wrote_count = 0;
 	i = 0;
 	while (i < str_len)
 	{
-		i += ft_print_substr(str + i);
+		last_write_count = write(STDOUT_FILENO, str + i,
+				ft_strlen_until(str + i, '%'));
+		if (last_write_count == -1)
+			return (-1);
+		i += last_write_count;
 		wrote_count += i;
 		if (i < str_len)
 		{
-			arg = ft_parse_arg(str + i, ap, &i);
-			wrote_count += ft_print_arg(arg);
+			last_write_count = handle_arg(str + i, ap, &i);
+			if (last_write_count == -1)
+				return (-1);
+			wrote_count += last_write_count;
 			i++;
-			free(arg.value);
 		}
 	}
 	va_end(ap);

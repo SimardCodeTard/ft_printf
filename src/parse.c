@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 11:50:13 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 13:41:04 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ static t_arg	set_64bits_value(t_arg arg, va_list ap)
 	return (arg);
 }
 
-t_arg	ft_parse_arg(t_string str, va_list ap, size_t *i)
+t_arg	ft_parse_arg(t_string str, va_list ap, size_t *ptr_i)
 {
 	t_arg		arg;
 	size_t		j;
 
 	j = ft_parse_flags(&arg, str);
 	arg.type = str[++j];
-	*i += j;
+	*ptr_i += j;
 	if (arg.type == CHAR || arg.type == INT || arg.type == UINT
 		|| arg.type == LHEX || arg.type == UHEX)
 		arg = set_32bits_value(arg, ap);
