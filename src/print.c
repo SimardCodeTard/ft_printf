@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 12:33:40 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:43:50 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,13 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 
 ssize_t	ft_print_arg(t_arg arg)
 {
-	if (arg.value == NULL && (arg.type == PTR || arg.type == STRING))
+	if ((*(t_string *)arg.value == NULL && arg.type == STRING)
+	|| (*(void **) arg.value == NULL && arg.type == PTR))
 	{
 		if (arg.type == PTR)
-			return (ft_putstr("(null)"));
-		else
 			return (ft_putstr("(nil)"));
+		else
+			return (ft_putstr("(null)"));
 	}
 	else if (arg.type == CHAR || arg.type == PERCENT)
 		return (write(STDOUT_FILENO,arg.value, 1));
