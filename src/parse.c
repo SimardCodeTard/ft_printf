@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 13:41:04 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 17:13:25 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_arg	ft_parse_arg(t_string str, va_list ap, size_t *ptr_i)
 	t_arg		arg;
 	size_t		j;
 
-	j = ft_parse_flags(&arg, str);
+	j = ft_parse_flags(&arg, str + 1);
 	arg.type = str[++j];
 	*ptr_i += j;
 	if (arg.type == CHAR || arg.type == INT || arg.type == UINT

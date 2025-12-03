@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:53:40 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 14:00:38 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 17:15:28 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,11 @@ int	ft_printf(char *str, ...)
 	{
 		last_write_count = write(STDOUT_FILENO, str + i,
 				ft_strlen_until(str + i, '%'));
-		if (last_write_count == -1)
-			return (-1);
 		i += last_write_count;
-		wrote_count += i;
+		wrote_count += last_write_count;
 		if (i < str_len)
 		{
 			last_write_count = handle_arg(str + i, ap, &i);
-			if (last_write_count == -1)
-				return (-1);
 			wrote_count += last_write_count;
 			i++;
 		}

@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/02 14:57:16 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 16:52:04 by smenard          ###   ########.fr       */
+/*   Created: 2025/12/03 16:48:36 by smenard           #+#    #+#             */
+/*   Updated: 2025/12/03 16:51:36 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tests.h"
+#ifndef TESTS_H
+# define TESTS_H
 
-int	main(void)
-{
-	tests_mandatory();
-}
+# include "ft_printf.h"
+# include <stdio.h>
+# include <limits.h>
+
+/* tests_mandatory.c */
+void	tests_mandatory(void);
+
+#endif
