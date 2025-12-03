@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:06:22 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 11:21:17 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:11:37 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	ft_strlen_until(t_string str, char stop)
 	return (len);
 }
 
-uint64_t	ft_abs(int32_t num)
+uint64_t	ft_abs(int64_t num)
 {
 	if (num < 0)
 		return (-num);

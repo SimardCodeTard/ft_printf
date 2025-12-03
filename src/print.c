@@ -6,25 +6,11 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 12:03:11 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:33:40 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
-
-ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
-{
-	ssize_t			total_write_count;
-
-	total_write_count = 0;
-	if (num < 0)
-	{
-		total_write_count++;
-		write(STDOUT_FILENO,"-", 1);
-		num = -num;
-	}
-	return (ft_putnbr_base(num, base) + total_write_count);
-}
 
 ssize_t	ft_putstr(t_string str)
 {
@@ -36,6 +22,19 @@ ssize_t	ft_putstr(t_string str)
 	return (write(STDOUT_FILENO,str, len));
 }
 
+ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
+{
+	ssize_t			total_write_count;
+
+	total_write_count = 0;
+	if (num < 0)
+	{
+		total_write_count++;
+		write(STDOUT_FILENO,"-", 1);
+	}
+	return (ft_putnbr_base(ft_abs(num), base) + total_write_count);
+}
+
 ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 {
 	const size_t	base_len = ft_strlen(base);
@@ -43,9 +42,11 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 	ssize_t			total_write_count;
 	char			c;
 
+	if(base_len == 0)
+		return (0);
 	write_result = 0;
 	total_write_count = 0;
-	if (num > 9)
+	if (num >= base_len)
 	{
 		write_result = ft_putnbr_base(num / base_len, base);
 		if (write_result == -1)
@@ -55,7 +56,7 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 		write_result = write(STDOUT_FILENO,&c, 1);
 		return (write_result + total_write_count);
 	}
-	c = base[num];
+	c = base[num % base_len];
 	write_result = write(STDOUT_FILENO,&c, 1);
 	if (write_result == -1)
 		return (-1);
@@ -86,7 +87,8 @@ ssize_t	ft_print_arg(t_arg arg)
 	else if (arg.type == UHEX)
 		return (ft_putnbr_base(ft_abs(*(int32_t *) arg.value), UHEX_CHARSET));
 	else if (arg.type == PTR)
-		return (ft_putnbr_base(*(uint64_t *) arg.value, DECIMAL_CHARSET));
+		return (ft_putstr("0x") + ft_putnbr_base(*(uint64_t *) arg.value,
+			LHEX_CHARSET));
 	return (-1);
 }
 
