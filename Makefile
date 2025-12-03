@@ -35,6 +35,9 @@ run-tests: tests
 debug-tests: tests
 	gdb ./$(NAME_TESTS)
 
+vg-tests: tests
+	valgrind --leak-check=full -s --show-leak-kinds=all ./$(NAME_TESTS)
+
 tests: $(NAME_TESTS)
 
 $(NAME_TESTS) : $(SRC_FILES) $(TESTS_FILES)
