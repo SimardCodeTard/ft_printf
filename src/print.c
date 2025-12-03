@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 11:51:45 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:03:11 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
 	if (num < 0)
 	{
 		total_write_count++;
-		write(stdout->_fileno, "-", 1);
+		write(STDOUT_FILENO,"-", 1);
 		num = -num;
 	}
 	return (ft_putnbr_base(num, base) + total_write_count);
@@ -31,9 +31,9 @@ ssize_t	ft_putstr(t_string str)
 	size_t	len;
 
 	if (str == NULL)
-		return (write(stdout->_fileno, "(null)", 6));
+		return (write(STDOUT_FILENO,"(null)", 6));
 	len = ft_strlen(str);
-	return (write(stdout->_fileno, str, len));
+	return (write(STDOUT_FILENO,str, len));
 }
 
 ssize_t	ft_putnbr_base(uint64_t num, t_string base)
@@ -52,11 +52,11 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 			return (-1);
 		total_write_count += write_result;
 		c = base[num % base_len];
-		write_result = write(stdout->_fileno, &c, 1);
+		write_result = write(STDOUT_FILENO,&c, 1);
 		return (write_result + total_write_count);
 	}
 	c = base[num];
-	write_result = write(stdout->_fileno, &c, 1);
+	write_result = write(STDOUT_FILENO,&c, 1);
 	if (write_result == -1)
 		return (-1);
 	return (write_result + total_write_count);
@@ -72,7 +72,7 @@ ssize_t	ft_print_arg(t_arg arg)
 			return (ft_putstr("(nil)"));
 	}
 	else if (arg.type == CHAR || arg.type == PERCENT)
-		return (write(stdout->_fileno, arg.value, 1));
+		return (write(STDOUT_FILENO,arg.value, 1));
 	else if (arg.type == STRING)
 		return (ft_putstr(*(t_string *) arg.value));
 	else if (arg.type == INT)
@@ -92,5 +92,5 @@ ssize_t	ft_print_arg(t_arg arg)
 
 ssize_t	ft_print_substr(t_string str)
 {
-	return (write(stdout->_fileno, str, ft_strlen_until(str, '%')));
+	return (write(STDOUT_FILENO,str, ft_strlen_until(str, '%')));
 }
