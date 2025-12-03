@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:51:05 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/02 15:29:53 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:49:19 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "includes.h"
 
-# define DECIMAL_CHARSET "0123456789"
+# define DEC_CHARSET "0123456789"
 # define LHEX_CHARSET "0123456789abcdef"
 # define UHEX_CHARSET "0123456789ABCDEF"
 

@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 12:43:50 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:48:52 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ ssize_t	ft_putstr(t_string str)
 	size_t	len;
 
 	if (str == NULL)
-		return (write(STDOUT_FILENO,"(null)", 6));
+		return (write(STDOUT_FILENO, "(null)", 6));
 	len = ft_strlen(str);
-	return (write(STDOUT_FILENO,str, len));
+	return (write(STDOUT_FILENO, str, len));
 }
 
 ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
@@ -30,7 +30,7 @@ ssize_t	ft_putnbr_base_signed(int64_t num, t_string base)
 	if (num < 0)
 	{
 		total_write_count++;
-		write(STDOUT_FILENO,"-", 1);
+		write(STDOUT_FILENO, "-", 1);
 	}
 	return (ft_putnbr_base(ft_abs(num), base) + total_write_count);
 }
@@ -42,7 +42,7 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 	ssize_t			total_write_count;
 	char			c;
 
-	if(base_len == 0)
+	if (base_len == 0)
 		return (0);
 	write_result = 0;
 	total_write_count = 0;
@@ -53,11 +53,11 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 			return (-1);
 		total_write_count += write_result;
 		c = base[num % base_len];
-		write_result = write(STDOUT_FILENO,&c, 1);
+		write_result = write(STDOUT_FILENO, &c, 1);
 		return (write_result + total_write_count);
 	}
 	c = base[num % base_len];
-	write_result = write(STDOUT_FILENO,&c, 1);
+	write_result = write(STDOUT_FILENO, &c, 1);
 	if (write_result == -1)
 		return (-1);
 	return (write_result + total_write_count);
@@ -65,8 +65,8 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 
 ssize_t	ft_print_arg(t_arg arg)
 {
-	if ((*(t_string *)arg.value == NULL && arg.type == STRING)
-	|| (*(void **) arg.value == NULL && arg.type == PTR))
+	if ((*(void **) arg.value == NULL
+			&& (arg.type == PTR || arg.type == STRING)))
 	{
 		if (arg.type == PTR)
 			return (ft_putstr("(nil)"));
@@ -74,26 +74,25 @@ ssize_t	ft_print_arg(t_arg arg)
 			return (ft_putstr("(null)"));
 	}
 	else if (arg.type == CHAR || arg.type == PERCENT)
-		return (write(STDOUT_FILENO,arg.value, 1));
+		return (write(STDOUT_FILENO, arg.value, 1));
 	else if (arg.type == STRING)
 		return (ft_putstr(*(t_string *) arg.value));
 	else if (arg.type == INT)
-		return (ft_putnbr_base_signed(*((int32_t *) arg.value),
-				DECIMAL_CHARSET));
+		return (ft_putnbr_base_signed(*((int32_t *) arg.value), DEC_CHARSET));
 	else if (arg.type == UINT)
 		return (ft_putnbr_base((uint32_t) *(int32_t *) arg.value,
-				DECIMAL_CHARSET));
+				DEC_CHARSET));
 	else if (arg.type == LHEX)
 		return (ft_putnbr_base(ft_abs(*(int32_t *) arg.value), LHEX_CHARSET));
 	else if (arg.type == UHEX)
 		return (ft_putnbr_base(ft_abs(*(int32_t *) arg.value), UHEX_CHARSET));
 	else if (arg.type == PTR)
 		return (ft_putstr("0x") + ft_putnbr_base(*(uint64_t *) arg.value,
-			LHEX_CHARSET));
+				LHEX_CHARSET));
 	return (-1);
 }
 
 ssize_t	ft_print_substr(t_string str)
 {
-	return (write(STDOUT_FILENO,str, ft_strlen_until(str, '%')));
+	return (write(STDOUT_FILENO, str, ft_strlen_until(str, '%')));
 }
