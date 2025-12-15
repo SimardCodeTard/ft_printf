@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:33 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 11:58:47 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:04:34 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,12 @@ void	tests_mandatory(void)
 
 	printf("===== 3 PERCENTS =====\n");
 	ft_return = ft_printf("lib |%%%|\n");
+	printf("-----------------------\nft return: %d\n", ft_return);
+
+	printf("===== %% WITHOUT CONVERSION =====\n");
+	ft_return = ft_printf("lib |%|\n");
+	printf("-----------------------\nft return: %d\n", ft_return);
+	printf("===== %% AT END OF STRING =====\n");
+	ft_return = ft_printf("lib |%");
 	printf("-----------------------\nft return: %d\n", ft_return);
 }
