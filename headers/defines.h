@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:51:05 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 11:55:07 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:18:27 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,6 @@ typedef struct s_arg
 {
 	void			*value;
 	t_value_type	type;
-	t_string		prefix;
-	uint32_t		padding_len;
-	uint32_t		precision_len;
-	uint32_t		full_len;
 }	t_arg;
 
 #endif

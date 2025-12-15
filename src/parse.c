@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 12:07:10 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:27:36 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,44 @@ static size_t	ft_skip_until_conversion(t_arg *arg, t_string str)
 	return (j);
 }
 
-static t_arg	set_32bits_value(t_arg arg, va_list ap)
+static void	set_32bits_value(t_arg *arg, va_list ap)
 {
-	arg.value = malloc(sizeof(int32_t));
-	if (!arg.value)
-		return (arg);
-	*(int32_t *) arg.value = va_arg(ap, int32_t);
-	return (arg);
+	arg->value = ft_calloc(1, sizeof(int32_t));
+	if (!arg->value)
+		return ;
+	*(int32_t *) (arg->value) = va_arg(ap, int32_t);
 }
 
-static t_arg	set_64bits_value(t_arg arg, va_list ap)
+static void	set_64bits_value(t_arg *arg, va_list ap)
 {
-	arg.value = malloc(sizeof(int64_t));
-	if (!arg.value)
-		return (arg);
-	*(int64_t *) arg.value = va_arg(ap, int64_t);
-	return (arg);
+	arg->value = ft_calloc(1, (sizeof(int64_t)));
+	if (!arg->value)
+		return ;
+	*(int64_t *) (arg->value) = va_arg(ap, int64_t);
 }
 
-t_arg	ft_parse_arg(t_string str, va_list ap, size_t *ptr_i)
+static void set_invalid_value(t_arg *arg)
 {
-	t_arg		arg;
-	size_t		j;
+	arg->type = INVALID;
+	arg->value = NULL;
+}
 
-	j = ft_skip_until_conversion(&arg, str + 1);
+void	ft_parse_arg(t_string str, va_list ap, size_t *ptr_i, t_arg *arg)
+{
+	size_t	j;
+
+	j = ft_skip_until_conversion(arg, str + 1);
 	if (str[j])
 		j++;
-	arg.type = str[j];
+	arg->type = str[j];
 	*ptr_i += j;
-	if (arg.type == CHAR || arg.type == INT || arg.type == IINT || arg.type == UINT
-		|| arg.type == LHEX || arg.type == UHEX)
-		arg = set_32bits_value(arg, ap);
-	else if (arg.type == PTR || arg.type == STRING)
-		arg = set_64bits_value(arg, ap);
-	else if (arg.type == PERCENT)
-		arg.value = ft_strdup("%");
+	if (arg->type == CHAR || arg->type == INT || arg->type == IINT
+		|| arg->type == UINT || arg->type == LHEX || arg->type == UHEX)
+		set_32bits_value(arg, ap);
+	else if (arg->type == PTR || arg->type == STRING)
+		set_64bits_value(arg, ap);
+	else if (arg->type == PERCENT)
+		arg->value = ft_strdup("%");
 	else
-	{
-		arg.type = INVALID;
-		arg.value = NULL;
-	}
-	return (arg);
+		set_invalid_value(arg);
 }

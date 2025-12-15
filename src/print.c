@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 12:11:27 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:29:06 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ ssize_t	ft_putnbr_base(uint64_t num, t_string base)
 
 ssize_t	ft_print_arg(t_arg arg)
 {
-	if (arg.value && (*(void **) arg.value == NULL) && (arg.type == PTR || arg.type == STRING))
+	if ((arg.type == PTR || arg.type == STRING) && arg.value
+		&& (*(void **) arg.value == NULL))
 	{
 		if (arg.type == PTR)
 			return (ft_putstr("(nil)"));
@@ -81,9 +82,9 @@ ssize_t	ft_print_arg(t_arg arg)
 	else if (arg.type == UINT)
 		return (ft_putnbr_base(*(uint32_t *) arg.value, DEC_CHARSET));
 	else if (arg.type == LHEX)
-		return (ft_putnbr_base_signed(*(int64_t *) arg.value, LHEX_CHARSET));
+		return (ft_putnbr_base_signed(*(uint32_t *) arg.value, LHEX_CHARSET));
 	else if (arg.type == UHEX)
-		return (ft_putnbr_base_signed(*(int64_t *) arg.value, UHEX_CHARSET));
+		return (ft_putnbr_base_signed(*(uint32_t *) arg.value, UHEX_CHARSET));
 	else if (arg.type == PTR)
 		return (ft_putstr("0x") + ft_putnbr_base(*(uint64_t *) arg.value,
 				LHEX_CHARSET));

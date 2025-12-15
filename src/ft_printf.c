@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:53:40 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 17:15:28 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:52:33 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static ssize_t	handle_arg(t_string str, va_list ap, size_t *ptr_i)
 	t_arg	arg;
 	size_t	wrote_count;
 
-	arg = ft_parse_arg(str, ap, ptr_i);
+	ft_parse_arg(str, ap, ptr_i, &arg);
 	wrote_count = ft_print_arg(arg);
 	free(arg.value);
 	return (wrote_count);

@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:33 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 12:04:34 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:30:36 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ void	tests_mandatory(void)
 	ft_return = ft_printf("ft  |%c|\n", 202);
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
 
-
 	printf("===== NON-ASCII CHAR =====\n");
 	lib_return = printf("lib |%c|\n", 1058);
 	ft_return = ft_printf("ft  |%c|\n", 1058);
@@ -169,7 +168,6 @@ void	tests_mandatory(void)
 	lib_return = printf("lib |%X|\n", INT_MIN);
 	ft_return = ft_printf("ft  |%X|\n", INT_MIN);
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
-	free(empty_str);
 
 	printf("========== DUMB CASES ==========\n");
 
@@ -187,4 +185,5 @@ void	tests_mandatory(void)
 	printf("===== %% AT END OF STRING =====\n");
 	ft_return = ft_printf("lib |%");
 	printf("-----------------------\nft return: %d\n", ft_return);
+	free(empty_str);
 }

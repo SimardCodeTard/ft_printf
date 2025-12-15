@@ -7,10 +7,10 @@ TESTS_DIR=tests
 INCLUDES=headers
 
 SRC_FILES = $(SRC_DIR)/ft_printf.c \
-		$(SRC_DIR)/normalize.c \
 		$(SRC_DIR)/parse.c \
 		$(SRC_DIR)/print.c \
-		$(SRC_DIR)/utils.c
+		$(SRC_DIR)/utils.c \
+		$(SRC_DIR)/mem_utils.c
 
 TESTS_FILES = $(TESTS_DIR)/main.c \
 		$(TESTS_DIR)/tests_mandatory.c

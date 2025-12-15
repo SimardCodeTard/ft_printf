@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:51:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 13:52:27 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 12:56:23 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 # include "defines.h"
 
 /* parse.c */
-t_arg		ft_parse_arg(t_string str, va_list ap, size_t *ptr_i);
-
-/* normalize.c */
-void		ft_normalize_arg(t_arg *arg);
+void		ft_parse_arg(t_string str, va_list ap, size_t *ptr_i, t_arg *arg);
 
 /* print.c */
 ssize_t		ft_putstr(t_string str);
@@ -39,5 +36,9 @@ uint64_t	ft_abs(int64_t num);
 char		*ft_strchr(t_string str, char c);
 
 t_string	ft_strdup(t_string str);
+
+/* mem_utils.c */
+
+void		*ft_calloc(size_t nmemb, size_t size);
 
 #endif
