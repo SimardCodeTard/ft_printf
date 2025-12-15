@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:51:05 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 12:49:19 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 11:55:07 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_value_type
 	CHAR = 'c',
 	STRING = 's',
 	INT = 'd',
+	IINT = 'i',
 	UINT = 'u',
 	LHEX = 'x',
 	UHEX = 'X',

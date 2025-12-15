@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:33 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 17:14:48 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 11:58:47 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,14 @@ void	tests_mandatory(void)
 	ft_return = ft_printf("ft  |%X|\n", INT_MIN);
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
 	free(empty_str);
+
+	printf("========== DUMB CASES ==========\n");
+
+	printf("===== GARGABE BEFORE STRING =====\n");
+	ft_return = ft_printf("lib |%eeeeeees|\n", "Hello world !");
+	printf("-----------------------\nft return: %d\n", ft_return);
+
+	printf("===== 3 PERCENTS =====\n");
+	ft_return = ft_printf("lib |%%%|\n");
+	printf("-----------------------\nft return: %d\n", ft_return);
 }

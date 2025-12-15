@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:42 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 14:29:30 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 11:55:45 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ ssize_t	ft_print_arg(t_arg arg)
 		return (write(STDOUT_FILENO, arg.value, 1));
 	else if (arg.type == STRING)
 		return (ft_putstr(*(t_string *) arg.value));
-	else if (arg.type == INT)
+	else if (arg.type == INT || arg.type == IINT)
 		return (ft_putnbr_base_signed(*((int32_t *) arg.value), DEC_CHARSET));
 	else if (arg.type == UINT)
 		return (ft_putnbr_base(*(uint32_t *) arg.value, DEC_CHARSET));
