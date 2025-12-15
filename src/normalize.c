@@ -6,7 +6,10 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:47 by smenard           #+#    #+#             */
-/*   Updated: 2025/11/27 15:09:48 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/02 13:04:30 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lib.h"
+
+void	ft_normalize_arg(t_arg *arg);

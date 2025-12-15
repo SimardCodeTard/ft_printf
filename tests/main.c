@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/26 15:04:48 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 11:49:56 by smenard          ###   ########.fr       */
+/*   Created: 2025/12/02 14:57:16 by smenard           #+#    #+#             */
+/*   Updated: 2025/12/03 16:52:04 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "tests.h"
 
-# include "includes.h"
-# include "defines.h"
-
-int	ft_printf(char *str, ...);
-
-#endif
+int	main(void)
+{
+	tests_mandatory();
+}
