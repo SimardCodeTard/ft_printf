@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 15:09:49 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 14:27:36 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:43:14 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static size_t	ft_skip_until_conversion(t_arg *arg, t_string str)
 	size_t	j;
 
 	j = 0;
-	(void) arg;
+	(void)arg;
 	while (str[j] && !ft_strchr(CONVERSIONS, str[j]))
 		j++;
 	return (j);
@@ -28,7 +28,7 @@ static void	set_32bits_value(t_arg *arg, va_list ap)
 	arg->value = ft_calloc(1, sizeof(int32_t));
 	if (!arg->value)
 		return ;
-	*(int32_t *) (arg->value) = va_arg(ap, int32_t);
+	*(int32_t *)(arg->value) = va_arg(ap, int32_t);
 }
 
 static void	set_64bits_value(t_arg *arg, va_list ap)
@@ -36,10 +36,10 @@ static void	set_64bits_value(t_arg *arg, va_list ap)
 	arg->value = ft_calloc(1, (sizeof(int64_t)));
 	if (!arg->value)
 		return ;
-	*(int64_t *) (arg->value) = va_arg(ap, int64_t);
+	*(int64_t *)(arg->value) = va_arg(ap, int64_t);
 }
 
-static void set_invalid_value(t_arg *arg)
+static void	set_invalid_value(t_arg *arg)
 {
 	arg->type = INVALID;
 	arg->value = NULL;

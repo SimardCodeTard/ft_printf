@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 13:53:40 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 12:52:33 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:44:18 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@ static ssize_t	handle_arg(t_string str, va_list ap, size_t *ptr_i)
 
 int	ft_printf(char *str, ...)
 {
-	const size_t	str_len = ft_strlen(str);
-	va_list			ap;
-	size_t			i;
-	ssize_t			wrote_count;
-	ssize_t			last_write_count;
+	size_t	str_len;
+	va_list	ap;
+	size_t	i;
+	ssize_t	wrote_count;
+	ssize_t	last_write_count;
 
 	va_start(ap, str);
 	wrote_count = 0;
 	i = 0;
+	str_len = ft_strlen(str);
 	while (i < str_len)
 	{
-		last_write_count = write(STDOUT_FILENO, str + i,
-				ft_strlen_until(str + i, '%'));
+		last_write_count = write(STDOUT_FILENO, str + i, ft_strlen_until(str
+					+ i, '%'));
 		i += last_write_count;
 		wrote_count += last_write_count;
 		if (i < str_len)

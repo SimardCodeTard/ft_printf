@@ -6,19 +6,19 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 16:50:33 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 14:30:36 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:42:57 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tests.h"
 
-void	tests_mandatory(void)
+void tests_mandatory(void)
 {
-	int		lib_return;
-	int		ft_return;
-	void	*null;
-	void	**ptr_to_null;
-	char	*empty_str;
+	int lib_return;
+	int ft_return;
+	void *null;
+	void **ptr_to_null;
+	char *empty_str;
 
 	empty_str = malloc(1);
 	null = NULL;
@@ -38,13 +38,13 @@ void	tests_mandatory(void)
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
 
 	printf("===== NULL STRING =====\n");
-	lib_return = printf("lib |%s|\n",(char *) NULL);
-	ft_return = ft_printf("ft  |%s|\n",(char *) NULL);
+	lib_return = printf("lib |%s|\n", (char *)NULL);
+	ft_return = ft_printf("ft  |%s|\n", (char *)NULL);
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
 
 	printf("===== EMPTY STRING =====\n");
 	lib_return = printf("lib |%s|\n", empty_str);
-	ft_return = ft_printf("ft  |%s|\n",empty_str);
+	ft_return = ft_printf("ft  |%s|\n", empty_str);
 	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
 
 	printf("========== INT ==========\n");
@@ -182,8 +182,47 @@ void	tests_mandatory(void)
 	printf("===== %% WITHOUT CONVERSION =====\n");
 	ft_return = ft_printf("lib |%|\n");
 	printf("-----------------------\nft return: %d\n", ft_return);
+
 	printf("===== %% AT END OF STRING =====\n");
 	ft_return = ft_printf("lib |%");
 	printf("-----------------------\nft return: %d\n", ft_return);
+
+	printf("========== COMPLEX CASES ==========\n");
+
+	printf("===== 42 UHEX FOLLOWED BY STR =====\n");
+	lib_return = printf("lib |%X| |%s|\n", 42, "Hello World !");
+	ft_return = ft_printf("ft  |%X| |%s|\n", 42, "Hello World !");
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+
+	printf("===== 42 UHEX DIRECTLY FOLLOWED BY STR =====\n");
+	lib_return = printf("lib |%X%s|\n", 42, "Hello World !");
+	ft_return = ft_printf("ft  |%X%s|\n", 42, "Hello World !");
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+
+	printf("===== 10x 42 UHEX =====\n");
+	lib_return = printf("lib |%X%X%X%X%X%X%X%X%X%X|\n", 42, 42, 42, 42, 42, 42, 42, 42, 42, 42);
+	ft_return = ft_printf("ft  |%X%X%X%X%X%X%X%X%X%X|\n", 42, 42, 42, 42, 42, 42, 42, 42, 42, 42);
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+
+	printf("===== 10x STR =====\n");
+	lib_return = printf("lib |%s%s%s%s%s%s%s%s%s%s|\n", "Hello World!;", "Hello World!;", "Hello World!;",
+		"Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;");
+	ft_return = ft_printf("ft  |%s%s%s%s%s%s%s%s%s%s|\n", "Hello World!;", "Hello World!;", "Hello World!;",
+		"Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;", "Hello World!;");
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+
+	printf("===== 10x PTR =====\n");
+	int	*ptr = malloc(1);
+	lib_return = printf("lib |%p%p%p%p%p%p%p%p%p%p|\n", ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr);
+	ft_return = ft_printf("ft  |%p%p%p%p%p%p%p%p%p%p|\n", ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr);
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+	free(ptr);
+
+	printf("===== 10x NULL PTR =====\n");
+	lib_return = printf("lib |%p%p%p%p%p%p%p%p%p%p|\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	ft_return = ft_printf("ft  |%p%p%p%p%p%p%p%p%p%p|\n", NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+	printf("-----------------------\nLib return: %d, ft return: %d \n", lib_return, ft_return);
+
+
 	free(empty_str);
 }

@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:06:22 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/03 12:11:37 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:45:00 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ char	*ft_strchr(t_string str, char c)
 
 t_string	ft_strdup(t_string str)
 {
-	const size_t	len = ft_strlen(str);
-	t_string		dup;
-	size_t			i;
+	size_t		len;
+	t_string	dup;
+	size_t		i;
 
+	len = ft_strlen(str);
 	i = 0;
 	dup = malloc((len + 1) * sizeof(char));
 	if (!dup)

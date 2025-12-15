@@ -6,7 +6,7 @@
 /*   By: smenard <smenard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/15 12:22:10 by smenard           #+#    #+#             */
-/*   Updated: 2025/12/15 12:42:00 by smenard          ###   ########.fr       */
+/*   Updated: 2025/12/15 14:43:17 by smenard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	*ft_memset(void *s, int c, size_t n)
 	uint8_t	*cst_s;
 
 	i = 0;
-	cst_s = (uint8_t *) s;
+	cst_s = (uint8_t *)s;
 	while (i < n)
 	{
 		*(cst_s + i) = c;
